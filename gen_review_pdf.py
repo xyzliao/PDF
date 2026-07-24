@@ -23,7 +23,7 @@ class ReviewPDF(FPDF):
         self.set_font('NotoSC', 'B', size)
         self.set_text_color(30, 30, 30)
         self.multi_cell(0, size * 0.7, title)
-        self.ln(4)
+        self.ln(2)
     
     def chapter_body(self, text, size=10.5):
         self.set_font('NotoSC', '', size)
@@ -76,13 +76,6 @@ class ReviewPDF(FPDF):
                         ratio2 = max_h / display_h
                         display_w *= ratio2
                         display_h *= ratio2
-                    # Center vertically on first page
-                    if self.page_no() == 1:
-                        page_center = (self.h - self.t_margin - self.b_margin) / 2 + self.t_margin
-                        y_img = page_center - display_h / 2
-                        # Don't go above current position
-                        if y_img > self.get_y():
-                            self.set_y(y_img)
                     x = self.l_margin + (max_w - display_w) / 2
                     self.image(img_path, x=x, w=display_w, h=display_h)
                     self.ln(3)
