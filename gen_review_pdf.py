@@ -28,6 +28,9 @@ class ReviewPDF(FPDF):
     def chapter_body(self, text, size=10.5):
         self.set_font('NotoSC', '', size)
         self.set_text_color(40, 40, 40)
+        # Reduce English word spacing by disabling text shaping
+        # (text shaping can stretch spaces between English words when using CJK fonts)
+        self.set_text_shaping(False)
         # Process paragraphs
         paragraphs = text.strip().split('\n\n')
         for i, para in enumerate(paragraphs):
