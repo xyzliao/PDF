@@ -55,11 +55,12 @@ class ReviewPDF(FPDF):
                 self.line(self.l_margin + 30, y, self.w - self.r_margin - 30, y)
                 self.ln(4)
                 continue
-            # Handle images ![alt](path)
-            img_match = re.match(r'!\[(.*?)\]\((.*?)\)', para.strip())
+            # Handle images ![alt](path){height=NNmm} or ![alt](path)
+            img_match = re.match(r'!\[(.*?)\]\((.*?)\)(?:\{height=(\d+)mm\})?', para.strip())
             if img_match:
                 img_path = img_match.group(2).strip()
                 img_alt = img_match.group(1).strip()
+                custom_h = int(img_match.group(3)) if img_match.group(3) else None
                 try:
                     # Calculate image dimensions to fit page width
                     from PIL import Image as PILImage
@@ -69,8 +70,8 @@ class ReviewPDF(FPDF):
                     ratio = min(max_w / img_w, 1.0)
                     display_w = img_w * ratio
                     display_h = img_h * ratio
-                    # Limit image height to ~90mm
-                    max_h = 90  # mm
+                    # Limit image height: custom or default 90mm
+                    max_h = custom_h if custom_h else 90  # mm
                     if display_h > max_h:
                         ratio2 = max_h / display_h
                         display_w *= ratio2
