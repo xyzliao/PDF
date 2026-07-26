@@ -1,0 +1,32 @@
+# Memory files - local only
+memory/
+
+# Markdown source files (only PDFs are pushed)
+*.md
+
+# Config and workspace files
+.openclaw/
+AGENTS.md
+BOOTSTRAP.md
+HEARTBEAT.md
+IDENTITY.md
+SOUL.md
+TOOLS.md
+USER.md
+
+# Python scripts
+*.py
+
+# Font files
+*.ttf
+*.otf
+*.ttc
+
+# HTML files
+*.html
+
+# DOCX files
+*.docx
+
+# Text files
+*.txt
